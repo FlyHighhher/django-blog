@@ -6,6 +6,9 @@ STATUS = ((0, "Draft"), (1, "Published"))
 
 # Create your models here.
 class Post(models.Model):
+    """
+    Stores a single blog post entry related to :model:`auth.User`.
+    """
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(
@@ -22,6 +25,13 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Model stores comments associated with a `Post`.
+    Each comment has an author (a User), a body 
+    (the actual content of the comment), an approval status, 
+    and a timestamp for when it was created. 
+    The Meta class ensures that comments are ordered by their creation time.
+    """
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
